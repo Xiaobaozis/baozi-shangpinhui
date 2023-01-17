@@ -8,9 +8,11 @@ Vue.component(TypeNav.name,TypeNav)
 import router from "./router"
 //引入仓库
 import store from '@/store'
-//测试
-// import {reqCategoryList} from '@/api'
-// reqCategoryList()
+//引入Mock Server.js-----moke数据
+import '@/mock/mockServer'
+//引入swiper样式
+import 'swiper/css/swiper.css'
+
 new Vue({
     render: h => h(App),
     // 注册路由： 底下写法 key:value 一致省略value [router小写]

@@ -12,7 +12,7 @@ import Search from '@/pages/Search'
 
 //先把VueRouter原型对象的push备份一份
 let originPush =VueRouter.prototype.push
-
+let originReplace=VueRouter.prototype.replace
 //重写push | replace
 //第一个参数 ：告诉原来的push方法，往哪里跳（传递哪些参数）
 VueRouter.prototype.push=function(loction,resolve,reject){
@@ -24,6 +24,15 @@ VueRouter.prototype.push=function(loction,resolve,reject){
     }else{
         originPush.call(this,loction,()=>{},()=>{})
     }
+}
+VueRouter.prototype.replace=function(loction,resolve,reject){
+    if(resolve&&reject){
+        originReplace.call(this,loction,resolve,reject)
+    }else{
+        originReplace.call(this,loction,()=>{},()=>{});
+    }
+
+
 }
 // 配置路由
 export default new VueRouter({
@@ -53,7 +62,7 @@ export default new VueRouter({
             //对象写法：额外给路由组件传递一些props
             // props:{a:1,b:2}
             //函数写法：可以params参数、query参数，通过props传递给路由组件
-            props:($route)=>({ keyword:$route.params.keyword,k:$route.query.k})
+            // props:($route)=>({ keyword:$route.params.keyword,k:$route.query.k})
 
         },
         //重定向，在项目跑起来的时候，访问/，立马让他定向到首页

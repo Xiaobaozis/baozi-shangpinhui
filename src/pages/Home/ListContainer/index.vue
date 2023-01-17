@@ -5,8 +5,12 @@
         <!--banner轮播-->
         <div class="swiper-container" id="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div
+              class="swiper-slide"
+              v-for="(carousel, index) in bannerList"
+              :key="carousel.id"
+            >
+              <img :src="carousel.imgUrl" />
             </div>
             <!-- <div class="swiper-slide">
               <img src="./images/banner2.jpg" />
@@ -99,8 +103,20 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+//引包
+import Swiper from "swiper";
 export default {
   name: "",
+  mounted() {
+    //派发action ：通过vueX发起ajax请求，将数据存储到仓库当中
+    this.$store.dispatch("getBannerList");
+  },
+  computed: {
+    ...mapState({
+      bannerList: (state) => state.home.bannerList,
+    }),
+  },
 };
 </script>
 <style scoped lang="less">

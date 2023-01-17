@@ -43,8 +43,9 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
+            v-model="keyword"
           />
-          <!--  v-model="keyword" -->
+
           <button
             class="sui-btn btn-xlarge btn-danger"
             type="button"
@@ -63,7 +64,7 @@ export default {
   name: "",
   data() {
     return {
-      keyWord: "",
+      keyword: "",
     };
   },
   methods: {
@@ -75,26 +76,35 @@ export default {
       //第二种：模板字符串
       // this.$router.push( `/search/${this.keyword}?k=${this.keyword.toUpperCase()}`);
       //第三种 对象的写法
-      //   this.$router.push({
-      //     name: "search",
-      //     params: {
-      //       keyword: this.keyword,
-      //     },
-      //     query: {
-      //       k: this.keyword.toUpperCase(),
-      //     },
-      //   });
+      // this.$router.push({
+      //   name: "search",
+      //   params: {
+      //     keyword: this.keyword,
+      //   },
+      //   query: {
+      //     k: this.keyword.toUpperCase(),
+      //   },
+      // });
 
       //路由组件能不能传递Props数据？  可以
-      this.$router.push(
-        {
+      // this.$router.push(
+      //   {
+      //     name: "search",
+      //     params: { keyword: this.keyword },
+      //     query: { k: this.keyword.toUpperCase() },
+      //   },
+      //   () => {},
+      //   () => {}
+      // );
+      //代表如果有query参数也带过去
+      if (this.$route.query) {
+        let location = {
           name: "search",
-          params: { keyword: this.keyword },
-          query: { k: this.keyword.toUpperCase() },
-        },
-        () => {},
-        () => {}
-      );
+          params: { keyword: this.keyword || undefined },
+        };
+        location.query = this.$route.query;
+        this.$router.push(location);
+      }
     },
   },
 };
