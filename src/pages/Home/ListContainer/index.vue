@@ -106,11 +106,38 @@
 import { mapState } from "vuex";
 //引包
 import Swiper from "swiper";
+
 export default {
   name: "",
   mounted() {
     //派发action ：通过vueX发起ajax请求，将数据存储到仓库当中
     this.$store.dispatch("getBannerList");
+    //在new swpier实例，页面结构必须得有【现在老师把呢哇spier实力放在mounted 里面发现不行
+    //因为dispatach 当中涉及到异步语句，导致v-for遍历的时候结构还没有完全因此不行
+    // setTimeout(() => {
+    //   var mySwiper = new Swiper(document.querySelector(".swiper-container"), {
+    //     // direction: 'vertical', // 垂直切换选项
+    //     loop: true, // 循环模式选项
+
+    //     // 如果需要分页器
+    //     pagination: {
+    //       el: ".swiper-pagination",
+    //       // 点击小球的时候也切换图片
+    //       clickable: true,
+    //     },
+
+    //     // 如果需要前进后退按钮
+    //     navigation: {
+    //       nextEl: ".swiper-button-next",
+    //       prevEl: ".swiper-button-prev",
+    //     },
+
+    //     // 如果需要滚动条
+    //     // scrollbar: {
+    //     //     el: '.swiper-scrollbar',
+    //     // },
+    //   });
+    // }, 200);
   },
   computed: {
     ...mapState({
